@@ -6,5 +6,6 @@ Rails.application.routes.draw do
 
   defaults format: :json do
     root 'endpoints#welcome'
+    get :health_check, to: 'endpoints#health_check'
   end
 end
