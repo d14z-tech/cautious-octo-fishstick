@@ -82,5 +82,5 @@ test:
 production:
   <<: *default
   database: cautious_octo_fishstick_production
-  username: cautious_octo_fishstick
-  password: <%= ENV["CAUTIOUS_OCTO_FISHSTICK_DATABASE_PASSWORD"] %>
+  # username: cautious_octo_fishstick
+  # password: <%= ENV["CAUTIOUS_OCTO_FISHSTICK_DATABASE_PASSWORD"] %>
