@@ -1,0 +1,20 @@
+databases:
+  - name: cautious_octo_fishstick
+    databaseName: cautious_octo_fishstick_production
+    user: cautious_octo_fishstick
+
+services:
+  - type: web
+    plan: free
+    healthCheckPath: /health_check
+    name: cautious_octo_fishstick
+    env: ruby
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: cautious_octo_fishstick
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false
