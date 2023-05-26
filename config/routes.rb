@@ -7,5 +7,11 @@ Rails.application.routes.draw do
   defaults format: :json do
     root 'endpoints#welcome'
     get :health_check, to: 'endpoints#health_check'
+
+    namespace :api do
+      namespace :v1 do
+        post :sign_up, to: 'users#create'
+      end
+    end
   end
 end
