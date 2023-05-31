@@ -19,7 +19,7 @@ class Api::V1::UsersController < ApplicationController
     if @user&.authenticate(signin_params[:password])
       response.headers['Token'] = @user.token
     else
-      render json: { status: 'fail', data: { user: { base: 'Your email or password is incorrect' } } }, status: :unprocessable_entity
+      render json: { status: 'fail', data: { user: { base: ['Your email or password is incorrect'] } } }, status: :unprocessable_entity
     end
   end
 
