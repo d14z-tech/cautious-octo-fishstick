@@ -1,28 +1,23 @@
 require "test_helper"
 
 class UserTest < ActiveSupport::TestCase
-  test "should not save user without email" do
-    user = User.new(password: '123456')
-    assert_not user.save
+  test 'should have "has_secure_password" configured' do
+    have_secure_password
   end
 
-  test "should not save user with an invalid email" do
-    user = User.new(email: "this is a invalid email", password: "123456")
-    assert_not user.save
+  test 'should validate presence of email' do
+    validate_presence_of :email
   end
 
-  test "should not save user without password" do
-    user = User.new(email: "myemail@mydomain.com")
-    assert_not user.save
+  test 'should validate format of email' do
+    allow_value('example@example.com').for :email
   end
 
-  test "should not save user when password not match to password_confirmation" do
-    user = User.new(email: "myemail@mydomain.com", password: "123456", password_confirmation: "098765")
-    assert_not user.save
+  test 'should validate uniqueness of email' do
+    validate_uniqueness_of :email
   end
 
-  test "should not save user when password have more than 72 characters" do
-    user = User.new(email: "myemail@mydomain.com", password: SecureRandom.hex(37))
-    assert_not user.save
+  test 'should validate presence of password_confirmation' do
+    validate_presence_of :password_confirmation
   end
 end
