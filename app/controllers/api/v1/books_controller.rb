@@ -21,7 +21,7 @@ class Api::V1::BooksController < ApplicationController
     if @book.save
       render :show, status: :created, location: [:api, :v1, @book]
     else
-      render json: @book.errors, status: :unprocessable_entity
+      render json: { status: 'fail', data: { user: @book.errors.to_hash(true) } }, status: :unprocessable_entity
     end
   end
 
@@ -31,7 +31,7 @@ class Api::V1::BooksController < ApplicationController
     if @book.update(book_params)
       render :show, status: :ok, location: [:api, :v1, @book]
     else
-      render json: @book.errors, status: :unprocessable_entity
+      render json: { status: 'fail', data: { user: @book.errors.to_hash(true) } }, status: :unprocessable_entity
     end
   end
 
