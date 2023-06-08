@@ -51,4 +51,11 @@ class Api::V1::BooksController < ApplicationController
     def book_params
       params.require(:book).permit(:name, :author, :read_at)
     end
+
+    def mark_as_read
+      book = Book.find(params[:id])
+      book.update(read_at: Time.now)
+  
+      render json: { message: "The column 'read_at' of the book has been updated." }
+    end
 end
