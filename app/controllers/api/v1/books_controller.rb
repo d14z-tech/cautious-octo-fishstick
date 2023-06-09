@@ -41,6 +41,13 @@ class Api::V1::BooksController < ApplicationController
     @book.destroy
   end
 
+  def mark_as_read
+    book = Book.find(params[:id])
+    book.update(read_at: Time.now)
+
+    render json: { message: "The column 'read_at' of the book has been updated." }
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_book
@@ -52,10 +59,5 @@ class Api::V1::BooksController < ApplicationController
       params.require(:book).permit(:name, :author, :read_at)
     end
 
-    def mark_as_read
-      book = Book.find(params[:id])
-      book.update(read_at: Time.now)
-  
-      render json: { message: "The column 'read_at' of the book has been updated." }
-    end
+    
 end
