@@ -1,7 +1,6 @@
 class Api::V1::BooksController < ApplicationController
   before_action :authenticate!
-  before_action :set_book, only: %i[ show update destroy ]
-
+  before_action :set_book, only: %i[ show update destroy mark_as_read ]
   # GET /api/v1/books
   # GET /api/v1/books.json
   def index
@@ -42,10 +41,11 @@ class Api::V1::BooksController < ApplicationController
   end
 
   def mark_as_read
-    book = Book.find(params[:id])
-    book.update(read_at: Time.now)
-
-    render json: { message: "The column 'read_at' of the book has been updated." }
+    if @book.update(read_at: Date.today)
+      render json: { status: 'success', data: { book: @book } }
+    else
+      render json: { status: 'fail', data: { book: @book.errors.to_hash(true) } }, status: :unprocessable_entity
+    end
   end
   
   private
@@ -58,6 +58,5 @@ class Api::V1::BooksController < ApplicationController
     def book_params
       params.require(:book).permit(:name, :author, :read_at)
     end
-
     
 end
