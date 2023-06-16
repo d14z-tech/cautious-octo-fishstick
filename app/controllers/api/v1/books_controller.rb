@@ -1,6 +1,8 @@
 class Api::V1::BooksController < ApplicationController
   before_action :authenticate!
-  before_action :set_book, only: %i[ show update destroy mark_as_read ]
+  
+  before_action :set_book, only: %i[ show update destroy mark_as_read mark_as_unread]
+
   # GET /api/v1/books
   # GET /api/v1/books.json
   def index
@@ -48,6 +50,14 @@ class Api::V1::BooksController < ApplicationController
     end
   end
   
+  def mark_as_unread
+    if @book.update(read_at: nil)
+      render json: { status: 'success', data: { book: @book } }
+    else
+      render json: { status: 'fail', data: { book: @book.errors.to_hash(true) } }, status: :unprocessable_entity
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_book
@@ -56,7 +66,6 @@ class Api::V1::BooksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def book_params
-      params.require(:book).permit(:name, :author, :read_at)
+      params.require(:book).permit(:gender,:name,:author,:cost,:observations,:read_at)
     end
-    
 end

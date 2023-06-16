@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_03_215043) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_16_013842) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gin"
   enable_extension "btree_gist"
@@ -42,6 +42,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_03_215043) do
     t.date "read_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "gender"
+    t.decimal "cost", precision: 10, scale: 2
+    t.string "observations"
     t.index ["user_id"], name: "index_books_on_user_id"
   end
 

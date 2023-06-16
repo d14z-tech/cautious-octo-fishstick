@@ -12,8 +12,12 @@ Rails.application.routes.draw do
       namespace :v1 do
         post :sign_up, to: 'users#create'
         post :sign_in, to: 'users#sign_in'
-        patch '/books/:id/mark_as_read', to: 'books#mark_as_read'
-        resources :books
+        resources :books do
+          member do
+            patch :mark_as_read
+            patch :mark_as_unread
+          end
+        end
       end
     end
   end
