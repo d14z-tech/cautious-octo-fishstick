@@ -49,6 +49,6 @@ class Api::V1::BooksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def book_params
-      params.require(:book).permit(:name, :author, :read_at)
+      params.require(:book).permit(:gender, :title, :author, :cost, :observations, :read_at)
     end
 end
