@@ -12,6 +12,8 @@ Rails.application.routes.draw do
       namespace :v1 do
         post :sign_up, to: 'users#create'
         post :sign_in, to: 'users#sign_in'
+        delete :logout, to: 'users#logout'
+        
         resources :books
       end
     end

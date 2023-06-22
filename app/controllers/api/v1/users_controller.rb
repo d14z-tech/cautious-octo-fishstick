@@ -1,4 +1,6 @@
 class Api::V1::UsersController < ApplicationController
+  before_action :authenticate!, only: :logout
+
   # POST /api/v1/sign_up
   # POST /api/v1/sign_up.json
   def create
@@ -13,6 +15,8 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  # POST /api/v1/sign_in
+  # POST /api/v1/sign_in.json
   def sign_in
     @user = User.find_by(email: signin_params[:email])
 
@@ -20,6 +24,16 @@ class Api::V1::UsersController < ApplicationController
       response.headers['Token'] = @user.token
     else
       render json: { status: 'fail', data: { user: { base: ['Your email or password is incorrect'] } } }, status: :unprocessable_entity
+    end
+  end
+
+  # DELETE /api/v1/logout
+  # DELETE /api/v1/logout.json
+  def logout
+    if Current.user.regenerate_token
+      head :no_content
+    else
+      render json: { status: 'fail', data: { user: Current.user.errors.to_hash(true) } }, status: :unprocessable_entity
     end
   end
 
