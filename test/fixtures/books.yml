@@ -2,12 +2,18 @@
 
 one:
   user: one
-  name: Book One
+  gender: Gender one
+  title: Book One
   author: Author One
+  cost: 10.99
+  observations: Observation One
   read_at: 2023-06-01
 
 two:
   user: two
-  name: Book Two
+  title: Book Two
+  gender: Gender Two
   author: Author Two
+  cost: 5
+  observations: Observation Two
   read_at: 2023-06-01

@@ -13,7 +13,7 @@ class Api::V1::BooksControllerTest < ActionDispatch::IntegrationTest
 
   test "should create book" do
     assert_difference("Book.count") do
-      post api_v1_books_url, params: { book: { author: @book.author, name: 'sample', read_at: @book.read_at } }, headers: @headers, as: :json
+      post api_v1_books_url, params: { book: { author: @book.author, title: 'sample', read_at: @book.read_at } }, headers: @headers, as: :json
     end
 
     assert_response :created
@@ -25,7 +25,7 @@ class Api::V1::BooksControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update book" do
-    patch api_v1_book_url(@book), params: { book: { author: @book.author, name: @book.name, read_at: @book.read_at } }, headers: @headers, as: :json
+    patch api_v1_book_url(@book), params: { book: { author: @book.title, name: @book.title, read_at: @book.read_at } }, headers: @headers, as: :json
     assert_response :success
   end
 
