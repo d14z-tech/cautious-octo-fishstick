@@ -14,7 +14,9 @@ Rails.application.routes.draw do
         post :sign_in, to: 'users#sign_in'
         delete :logout, to: 'users#logout'
         
-        resources :books
+        resources :books do
+          resources :quotes
+        end
       end
     end
   end
